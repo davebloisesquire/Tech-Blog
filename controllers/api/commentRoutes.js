@@ -23,3 +23,5 @@ router.delete('/:id', (res, req) => {
   .then((deletedComment) => res.json("Comment Removed"))
   .catch((error) => res.json(error))
 })
+
+module.exports = router;
