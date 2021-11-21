@@ -1,0 +1,21 @@
+{
+  "name": "tech-blog",
+  "version": "1.0.0",
+  "description": "A CMS style blog built with MVC architecture, complete with secured user accounts.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "seed": "node seeds/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davebloisesquire/Tech-Blog.git"
+  },
+  "author": "Dave Blois",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davebloisesquire/Tech-Blog/issues"
+  },
+  "homepage": "https://github.com/davebloisesquire/Tech-Blog#readme"
+}
