@@ -33,7 +33,9 @@ router.get('/user/:user_id', (req, res) => {
 
 // Post new Article
 router.post('/', (req, res) => {
-
+  Article.create(req.body)
+  .then((newArticle) => res.json("Article Posted"))
+  .catch((error) => res.json(error))
 })
 
 // Update exisiting Article
