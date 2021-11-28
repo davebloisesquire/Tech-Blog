@@ -1,28 +1,36 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { json } = require('sequelize/dist');
+const { User, Article, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-// Prevent non logged in users from viewing the homepage
-router.get('/', withAuth, async(req, res) => {
-    try {
-        const userData = await User.findAll({
-            attributes: { exclude: ['password'] },
-            order: [
-                ['name', 'ASC']
-            ],
-        });
+// Pulls article info from DB to render to homepage
+router.get('/', (req, res) => {
+    Article.findAll({
+            include: { model: User }
+        })
+        .then((dbArticleData) => {
+            const articles = dbArticleData.map(article => article.get({ plain: true }))
+            res.render('homepage', {
+                articles
+            })
+        })
+        .catch(error => res.status(500).json(error))
+})
 
-        const users = userData.map((project) => project.get({ plain: true }));
-
-        res.render('homepage', {
-            users,
-            // Pass the logged in flag to the template
-            logged_in: req.session.logged_in,
-        });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+router.get('/dashboard', withAuth, (req, res) => {
+    Article.findAll({
+            where: {
+                user_id: req.session.user_id
+            }
+        })
+        .then((dbArticleData) => {
+            const articles = dbArticleData.map(article => article.get({ plain: true }))
+            res.render('dashboard', {
+                articles
+            })
+        })
+        .catch(error => res.status(500).json(error))
+})
 
 router.get('/login', (req, res) => {
     // If a session exists, redirect the request to the homepage
@@ -32,14 +40,30 @@ router.get('/login', (req, res) => {
     }
 
     res.render('login');
-});
+})
 
 router.get('/signup', async(req, res) => {
     res.render('signup');
 })
 
-router.get('/article-form', async(req, res) => {
+router.get('/article-form', withAuth, async(req, res) => {
     res.render('articleForm');
+})
+
+router.get('/article/:id', async(req, res) => {
+    Article.findByPk(req.params.id, {
+            include: [
+                { model: User },
+                { model: Comment }
+            ]
+        })
+        .then((articleById) => {
+            const article = articleById.get({ plain: true })
+            res.render('article', {
+                article
+            })
+        })
+        .catch((error) => res.json(error))
 })
 
 module.exports = router;

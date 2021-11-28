@@ -1,1 +1,13 @@
-<h1>HOME PAGE!!!</h1>
+<section class="hero is-fullheight">
+       <div class="hero-body">
+           <div class="container">
+               {{#each articles as |article| }}
+                <div class="card">
+                <h1>{{this.title}}</h1>
+                <h2>{{this.user.name}}</h2>
+                {{this.content}}
+                </div>
+            {{/each}}
+           </div>
+       </div>
+</section>
