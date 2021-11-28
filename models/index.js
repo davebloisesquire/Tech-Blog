@@ -3,34 +3,29 @@ const Article = require('./Article');
 const Comment = require('./Comment');
 
 // User has many Articles and Comments
-User.hasMany(Article, {
-    foreignKey: "id"
-})
-
-User.hasMany(Comment, {
-    foreignKey: "id"
-})
+User.hasMany(Article)
+User.hasMany(Comment)
 
 // Article has one User and many Comments
-Article.belongsTo(User, {
-  foreignKey: "user_id"
-})
+Article.hasMany(Comment)
+Article.belongsTo(User)
 
-Article.hasMany(Comment, {
-  foreignKey: "id"
-})
+// Article.belongsTo(User, {
+//   foreignKey: "user_id"
+// })
+
 
 // Comment belongs to one User and one Article
 Comment.belongsTo(User, {
-  foreignKey: "user_id"
+    foreignKey: "user_id"
 })
 
 Comment.belongsTo(Article, {
-  foreignKey: "article_id"
+    foreignKey: "article_id"
 })
 
 module.exports = {
-  User,
-  Article,
-  Comment,
+    User,
+    Article,
+    Comment,
 };
