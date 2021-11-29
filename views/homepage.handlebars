@@ -2,12 +2,22 @@
        <div class="hero-body">
            <div class="container">
                {{#each articles as |article| }}
-                <div class="card">
-                <h1>{{this.title}}</h1>
-                <h2>{{this.user.name}}</h2>
-                {{this.content}}
+
+                <section class="section">
+                    <a href="/article/{{this.id}}">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                    <div class="content is-medium">
+                        <h2 class="subtitle is-4">{{this.user.name}} - {{this.createdAt}}</h2>
+                        <h1 class="title">{{this.title}}</h1>
+                        <p>{{this.content}}</p>
+                    </div>
+                    </div>
                 </div>
+                </a>
+                </section>
             {{/each}}
            </div>
        </div>
+
 </section>

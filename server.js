@@ -16,9 +16,9 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const hbs = exphbs.create({});
 
 const sess = {
-    secret: 'quikpik kipkiuq',
+    secret: 'who is this how did you get this number',
     cookie: {
-        maxAge: 24 * 60 * 60,
+        maxAge: 2 * 60 * 60 * 1000, // 2 hours
         httpOnly: true,
         secure: false,
         sameSite: 'strict'
@@ -40,8 +40,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./controllers/'));
-
-//app.use(cookieParser());
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));

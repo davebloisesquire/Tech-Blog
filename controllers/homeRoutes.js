@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
         .catch(error => res.status(500).json(error))
 })
 
+// Pulls articles written by current user
 router.get('/dashboard', withAuth, (req, res) => {
     Article.findAll({
             where: {
@@ -32,6 +33,7 @@ router.get('/dashboard', withAuth, (req, res) => {
         .catch(error => res.status(500).json(error))
 })
 
+
 router.get('/login', (req, res) => {
     // If a session exists, redirect the request to the homepage
     if (req.session.logged_in) {
@@ -46,15 +48,30 @@ router.get('/signup', async(req, res) => {
     res.render('signup');
 })
 
+
 router.get('/article-form', withAuth, async(req, res) => {
     res.render('articleForm');
 })
 
+router.get('/article-update/:id', withAuth, async(req, res) => {
+    const articleId = { id: req.params.id };
+    res.render('articleEditor', articleId);
+})
+
 router.get('/article/:id', async(req, res) => {
     Article.findByPk(req.params.id, {
-            include: [
-                { model: User },
-                { model: Comment }
+            include: [{
+                    model: User,
+                    attributes: ['name']
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment', 'user_id', 'created_at'],
+                    include: {
+                        model: User,
+                        attributes: ['name']
+                    }
+                }
             ]
         })
         .then((articleById) => {

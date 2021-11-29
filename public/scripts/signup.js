@@ -15,10 +15,9 @@ const signup = async(event) => {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            alert("You are logged in")
             document.location.replace('/');
         } else {
-            alert('Failed to log in');
+            alert('Username or Password Invalid');
         }
     }
 }

@@ -13,7 +13,7 @@ const newArticle = async(event) => {
         if (response.ok) {
             console.log(response);
         } else {
-            alert("not added, sorry bro");
+            console.log("Error in posting")
         }
     }
 }

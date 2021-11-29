@@ -1,3 +1,48 @@
-{{article.title}}
-{{article.user.name}}
-{{article.content}}
+<section class="hero">
+       <div class="hero-body">
+           <div class="container">
+                <section class="section">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                    <div class="content is-medium">
+                        <h2 class="subtitle is-4">{{article.user.name}} - {{article.createdAt}}</h2>
+                        <h1 class="title">{{article.title}}</h1>
+                        <p>{{article.content}}</p>
+                    </div>
+                    </div>
+                </div>
+
+                </section>
+                <section class="section">
+                  <div class="container has-text-centered">
+                  <form>
+                      <div class="field">
+                        <div class="control is-expanded">
+                      <input class="input" type="text" placeholder="Comment..." id="commentInput" data-article-id="{{article.id}}">
+                        </div>  
+                      </div>
+                      <div class="field">
+                        <div class="control">
+                          <button class="button is-primary" id="submit-comment">Submit</button>
+                        </div>  
+                      </div>
+                    
+                  </form>
+                  </div>
+                </section>
+                <section class="section">
+                  <div>
+                      {{#each article.comments as |comment|}}
+                      <div class="card">
+                          <h1>{{this.comment}}</h1>
+                          <h2>{{this.user.name}}</h2>
+                      </div>
+                          
+                      {{/each}}
+                  </div>
+                </section>
+           </div>
+       </div>
+
+</section>
+<script src="/scripts/article.js"></script>

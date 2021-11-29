@@ -14,9 +14,18 @@ router.get('/all', (req, res) => {
 // Get one article by ID
 router.get('/:id', (req, res) => {
     Article.findByPk(req.params.id, {
-            include: [
-                { model: User },
-                { model: Comment }
+            include: [{
+                    model: User,
+                    attributes: ['name']
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment', 'user_id', 'created_at'],
+                    include: {
+                        model: User,
+                        attributes: ['name']
+                    }
+                }
             ]
         })
         .then((articleById) => res.json(articleById))
@@ -45,12 +54,27 @@ router.post('/', (req, res) => {
 
 // Update exisiting Article
 router.put('/:id', (req, res) => {
-
+    Article.update({
+            title: req.body.title,
+            content: req.body.content,
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then((updateArticle) => res.json(updateArticle))
+        .catch((error) => res.status(500).json(error))
 })
 
 // Delete Article
 router.delete('/:id', (req, res) => {
-
+    Article.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then((data) => res.json(data))
+        .catch((error) => res.json(error))
 })
 
 module.exports = router;

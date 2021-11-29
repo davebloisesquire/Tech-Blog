@@ -1,6 +1,23 @@
-{{#each articles as |article| }}
-    <div>
-    <h1>{{this.title}}</h1>
-    {{this.content}}
-    </div>
-{{/each}}
+<section class="hero is-fullheight">
+       <div class="hero-body">
+           <div class="container">
+               {{#each articles as |article| }}
+
+                <section class="section">
+                    <a href="/article-update/{{this.id}}">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                    <div class="content is-medium">
+                        <h2 class="subtitle is-4">{{this.createdAt}}</h2>
+                        <h1 class="title">{{this.title}}</h1>
+                        <p>{{this.content}}</p>
+                    </div>
+                    </div>
+                </div>
+                </a>
+                </section>
+            {{/each}}
+           </div>
+       </div>
+
+</section>

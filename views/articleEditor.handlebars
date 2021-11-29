@@ -1,0 +1,24 @@
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+        <form>
+            <div class="field">
+              <div class="control">
+            <input class="input" type="text" placeholder="New Article Title" id="titleInput">
+              </div>  
+            </div>
+            <div class="field">
+              <div class="control">
+                   <textarea class="textarea" placeholder="Rewriting an article huh? I get you. Sometimes you just wanna update stuff" rows="10" id="contentInput" data-article-id="{{id}}"></textarea>
+              </div>  
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button is-primary" id="update-article">Submit</button><button class="button is-danger" id="delete-article" data-article-id="{{id}}">Remove</button>
+              </div>  
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+<script src="/scripts/article-update.js"></script>

@@ -14,10 +14,9 @@ const login = async(event) => {
         });
 
         if (response.ok) {
-            alert("You are logged in")
             document.location.replace('/');
         } else {
-            alert('Failed to log in');
+            alert('Username or Password Invalid');
         }
     }
 }
