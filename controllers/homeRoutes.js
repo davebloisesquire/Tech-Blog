@@ -19,6 +19,11 @@ router.get('/', (req, res) => {
 
 // Pulls articles written by current user
 router.get('/dashboard', withAuth, (req, res) => {
+    if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
+
     Article.findAll({
             where: {
                 user_id: req.session.user_id
@@ -45,6 +50,11 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/signup', async(req, res) => {
+    if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
+
     res.render('signup');
 })
 
